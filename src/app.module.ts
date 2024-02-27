@@ -6,19 +6,17 @@ import { UsersModule } from "./users/users.module";
 import { FilesModule } from "./files/files.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "./users/entities/user.entity";
+import { FileEntity } from "./files/entities/file.entity";
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: "postgres",
-      host: "ep-yellow-cherry-a4x08hbk-pooler.us-east-1.aws.neon.tech",
-      port: Number(process.env.DB_PORT) || 5432,
-      username: "default",
-      password: "wampPIUqd6l1",
-      database: "verceldb",
-      entities: [UserEntity],
+      entities: [UserEntity, FileEntity],
       synchronize: true,
+      url: "postgres://default:wampPIUqd6l1@ep-yellow-cherry-a4x08hbk-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require",
+      ssl: true,
     }),
     UsersModule,
     FilesModule,
